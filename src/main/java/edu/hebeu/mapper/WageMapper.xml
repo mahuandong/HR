@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.hebeu.mapper.WageMapper" >
+
+
+    <select id="selectAll" resultType="Wage" >
+      SELECT wage.*,employee.name
+      FROM wage
+      INNER JOIN employee
+      ON wage.employee_number = employee.employee_number
+      ORDER BY wage.id
+    </select>
+
+    <insert id="insertSelective" parameterType="Wage" >
+        insert into wage
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="employeeNumber != null" >
+                employee_number,
+            </if>
+            <if test="gangwei != null" >
+                gangwei,
+            </if>
+            <if test="grade != null" >
+                grade,
+            </if>
+            <if test="gongling != null" >
+                gongling,
+            </if>
+            <if test="xueli != null" >
+                xueli,
+            </if>
+            <if test="kaoqin != null" >
+                kaoqin,
+            </if>
+            <if test="shebao != null" >
+                shebao,
+            </if>
+            <if test="jixiao != null" >
+                jixiao,
+            </if>
+            <if test="geren != null" >
+                geren,
+            </if>
+            <if test="salary != null" >
+                salary,
+            </if>
+            <if test="month != null" >
+                month,
+            </if>
+            <if test="year != null" >
+                year,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="employeeNumber != null" >
+                #{employeeNumber},
+            </if>
+            <if test="gangwei != null" >
+                #{gangwei},
+            </if>
+            <if test="grade != null" >
+                #{grade},
+            </if>
+            <if test="gongling != null" >
+                #{gongling},
+            </if>
+            <if test="xueli != null" >
+                #{xueli},
+            </if>
+            <if test="kaoqin != null" >
+                #{kaoqin},
+            </if>
+            <if test="shebao != null" >
+                #{shebao},
+            </if>
+            <if test="jixiao != null" >
+                #{jixiao},
+            </if>
+            <if test="geren != null" >
+                #{geren},
+            </if>
+            <if test="salary != null" >
+                #{salary},
+            </if>
+            <if test="month != null" >
+                #{month},
+            </if>
+            <if test="year != null" >
+                #{year},
+            </if>
+        </trim>
+    </insert>
+</mapper>

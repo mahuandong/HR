@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.hebeu.mapper.AttendanceMapper">
+	
+	<sql id="Base_Column_List">
+		id, employee_number, day, time_type, start_time, start_type, end_time,  
+		end_type, work_type, notes ,year,mouth
+		
+	</sql>
+	<select id="selectAll" resultType="Attendance">
+		SELECT attendance.* ,employee.name
+		FROM attendance
+		INNER JOIN  employee ON
+		attendance.employee_number = employee.employee_number
+		ORDER BY attendance.id
+	</select>
+
+	<select id="selectByNumber" resultType="Attendance">
+		select 
+		<include refid="Base_Column_List" />
+		from attendance
+		where employee_number = #{employeeNumber}
+		and day = #{day} and time_type = #{timeType}
+	</select>
+
+	<select id="Late" resultType="java.lang.Integer" parameterType="Attendance" >
+        SELECT COUNT(*) FROM attendance
+        WHERE   employee_number = #{employeeNumber}
+        AND time_type != "加班"
+        AND mouth = #{mouth}
+        AND year = #{year}
+        AND (start_type = "迟到" OR end_type = "早退")
+    </select>
+
+	<select id="Overtime" resultType="java.lang.Integer" parameterType="Attendance" >
+        SELECT COUNT(*) FROM attendance
+        WHERE   employee_number = #{employeeNumber}
+        and mouth = #{mouth}
+        AND year = #{year}
+        AND time_type = "加班"
+    </select>
+</mapper>
